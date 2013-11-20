@@ -54,7 +54,7 @@ foreach ($sources as $source) {
                 $fill++;
 
             $blocks[$i]['hash'] = md5($blocks[$i]['clear_text']);
-            if (stristr($blocks[$i]['hash'], $hashes)) {
+            if (stristr($hashes, $blocks[$i]['hash'])) {
                 echo "[i] Found duplicated block\n";
                 $corrupt_blocks++;
                 continue;
