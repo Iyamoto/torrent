@@ -79,7 +79,7 @@ foreach ($sources as $source) {
         echo "[i] Corrupted blocks: $corrupt_blocks\n";
 
         unset($blocks);
-        break;
+        //break;
     }
 }
 

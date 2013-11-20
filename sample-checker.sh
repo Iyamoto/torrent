@@ -1,5 +1,5 @@
 #!/bin/bash
-#rename sample-checker.sh to checker.sh
+#cp sample-checker.sh checker.sh
 #chmod +x checker.sh
 #replace basedir with your path to project
 #and add to /etc/crontab: */10 * * * * root /root/torrent/checker.sh >/dev/null 2>&1
