@@ -37,7 +37,6 @@ foreach ($sources as $source) {
         //Base Url 
         $base_url = get_base_page_address($in['STATUS']['url']);
         //echo "[+] Base url: $base_url\n";
-
         //Get blocks from html
         $html_blocks = get_blocks($tidy, $block_marks);
         if (!$html_blocks) {
@@ -61,12 +60,14 @@ foreach ($sources as $source) {
                 continue;
             }
             $hashes.= $blocks[$i]['hash'] . "\n";
-            
+
             $blocks[$i]['date'] = $today;
 
             $blocks[$i]['name'] = get_name($html_blocks[$i]);
-            if (strlen($blocks[$i]['name']) > 0)
+            if (strlen($blocks[$i]['name']) > 4)
                 $fill++;
+            else
+                echo "[-] Short name\n";
 
             $blocks[$i]['links'] = get_links($html_blocks[$i], $base_url);
             if (sizeof($blocks[$i]['links']) > 0)
