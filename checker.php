@@ -23,8 +23,8 @@ foreach ($sources as $source) {
     foreach ($topics as $topic) {
         $end_url = str_replace('#key#', $topic, $url); //TODO what to do with several word topics?
         echo "[+] Processing url: $end_url\n";
-        $hash = md5($end_url);
-        $debug_file = $tmp_dir . DIRECTORY_SEPARATOR . $hash . '.html'; //cache for debug
+        $hash_url = md5($end_url);
+        $debug_file = $tmp_dir . DIRECTORY_SEPARATOR . $hash_url . '.html'; //cache for debug
         $in = http_get_prod($end_url, $debug_file, $ref_url);
         if (!$in)
             exit('[-] Cant load html');
@@ -34,8 +34,7 @@ foreach ($sources as $source) {
         $tidy = tidy_html($in['FILE']);
 
         //Base Url 
-        $url = $in['STATUS']['url'];
-        $base_url = get_base_page_address($url);
+        $base_url = get_base_page_address($in['STATUS']['url']);
         echo "[+] Base url: $base_url\n";
 
         //Get blocks from html
@@ -45,7 +44,7 @@ foreach ($sources as $source) {
             continue;
         }
         $corrupt_blocks = 0;
-
+        $hashes = '';
         //Blocks to elements
         for ($i = 0; $i < count($html_blocks); $i++) {
             $fill = 0;
@@ -53,6 +52,14 @@ foreach ($sources as $source) {
             $blocks[$i]['clear_text'] = clear_text($raw_text);
             if (strlen($blocks[$i]['clear_text']) > 0)
                 $fill++;
+
+            $blocks[$i]['hash'] = md5($blocks[$i]['clear_text']);
+            if (stristr($blocks[$i]['hash'], $hashes)) {
+                echo "[i] Found duplicated block\n";
+                $corrupt_blocks++;
+                continue;
+            }
+            $hashes.= $blocks[$i]['hash'] . "\n";
 
             $blocks[$i]['name'] = get_name($html_blocks[$i]);
             if (strlen($blocks[$i]['name']) > 0)
@@ -71,7 +78,7 @@ foreach ($sources as $source) {
                 echo "[-] Corrupted block: $i\n";
                 $corrupt_blocks++;
             }
-            $blocks[$i]['hash'] = md5($blocks[$i]['clear_text']);
+
 
             $global_blocks[] = $blocks[$i];
         }
