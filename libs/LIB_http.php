@@ -351,10 +351,8 @@ function http_get_prod($url, $debug_file = NULL, $ref = 'http://google.com/') {
     $r = preg_match('|charset=(.*)|', $web_page['STATUS']['content_type'], $m);
     if ($r) {
         $codepage = $m[1];
-        echo "[+] Charset detected: $codepage\n";
-        if (stristr($codepage, 'utf8') or stristr($codepage, 'utf-8'))
-            echo "[+] Charset is good\n";
-        else
+        //echo "[+] Charset detected: $codepage\n";
+        if (!(stristr($codepage, 'utf8') or stristr($codepage, 'utf-8')))
             echo "[-] Convert from $codepage to UTF8\n";
     }
     file_put_contents($debug_file, $web_page['FILE']);

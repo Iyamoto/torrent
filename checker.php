@@ -13,6 +13,7 @@ echo "\n[+] Started\n";
 $filename = 'topics.txt';
 $list = file_get_contents($filename);
 $topics = list2lines($list);
+$topics = array_unique($topics);
 if (!$topics)
     exit('[-] Cant load topics');
 shuffle($topics);
@@ -35,7 +36,7 @@ foreach ($sources as $source) {
 
         //Base Url 
         $base_url = get_base_page_address($in['STATUS']['url']);
-        echo "[+] Base url: $base_url\n";
+        //echo "[+] Base url: $base_url\n";
 
         //Get blocks from html
         $html_blocks = get_blocks($tidy, $block_marks);
@@ -44,7 +45,7 @@ foreach ($sources as $source) {
             continue;
         }
         $corrupt_blocks = 0;
-        $hashes = '';
+        $hashes = '1';
         //Blocks to elements
         for ($i = 0; $i < count($html_blocks); $i++) {
             $fill = 0;

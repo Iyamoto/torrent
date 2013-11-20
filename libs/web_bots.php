@@ -122,7 +122,6 @@ function get_divs($str, $marks) {
         return $good_divs;
 }
 
-
 //TODO more universal function needed
 function get_blocks($str, $marks) {
     $html = str_get_html($str);
@@ -146,7 +145,10 @@ function get_blocks($str, $marks) {
     }
     $html->clear();
 
-    $average = round($sum / $i);
+    if ($i > 0)
+        $average = round($sum / $i);
+    else
+        $average = 0;
     echo "[+] Sum $sum\n";
     echo "[+] Average $average\n";
     echo "[+] Found $i blocks\n";

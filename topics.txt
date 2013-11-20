@@ -9,7 +9,9 @@ mining
 security
 programming
 hack
-attack
+hacking
+attacks
+attacking
 penetration
 syngress
 practical
@@ -27,4 +29,14 @@ techniques
 learning
 intelligence
 exploit
-investigat
+investigator
+kernick
+reilly
+cook
+sniper
+sas
+swat
+survival
+tracking
+cisco
+applications
