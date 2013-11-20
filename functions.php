@@ -105,4 +105,25 @@ function load_from_template($filename) {
     return $html;
 }
 
+function get_uniq_blocks(&$new_blocks, &$global_blocks) {
+    $uniq_blocks_counter = 0;
+    $global_size = sizeof($global_blocks);
+    foreach ($new_blocks as $new_block) {
+        $i = 0;
+        foreach ($global_blocks as $global_block) {
+            if ($new_block['hash'] == $global_block['hash'])
+                break;
+            $i++;
+        }
+        if ($i == $global_size) {
+            $uniq_blocks_counter++;
+            $uniq_blocks[] = $new_block; //Order of global blocks?
+        }
+    }
+    echo "[+] Uniq Blocks found: $uniq_blocks_counter\n";
+    if ($uniq_blocks_counter > 0)
+        return $uniq_blocks;
+    else
+        return false;
+}
 ?>

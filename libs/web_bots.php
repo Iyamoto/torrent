@@ -122,6 +122,8 @@ function get_divs($str, $marks) {
         return $good_divs;
 }
 
+
+//TODO more universal function needed
 function get_blocks($str, $marks) {
     $html = str_get_html($str);
     $i = 0;

@@ -6,6 +6,7 @@
 $exec_time = microtime(true);
 require_once 'config.php';
 require_once 'functions.php';
+require_once 'libs' . DIRECTORY_SEPARATOR . 'web_bots.php';
 echo "\n[+] Started\n";
 
 //Read one_run
@@ -17,22 +18,31 @@ if ($one_run) {
 else
     exit('Problem with one_run file');
 
-//Read daily data
-$daily = read_db_from_file($daily_db_file);
-if ($daily) { //Daily db exists
-    $daily_size = sizeof($daily);
-    echo "[+] Read $daily_size daily blocks\n";
-    //Add to daily
-} else { //Daily db is empty
-    unset($daily);
-    //Form daily db
-    $daily_counter = 0;
+//Read global data
+$global_blocks = read_db_from_file($global_db_file);
+if ($global_blocks) { //global db exists
+    $global_size = sizeof($global_blocks);
+    echo "[+] Read $global_size global blocks\n";
+
+    //Filter Uniqs
+    $uniq_blocks = get_uniq_blocks($one_run, $global_blocks);
+    if (!$uniq_blocks)
+        exit('[-] Exit: Zero uniq blocks found');
+    unset($one_run);
+    //Add global blocks to uniq blocks, new blocks stay upper
+    add_to_array($global_blocks, $uniq_blocks);
+    $global_blocks = &$uniq_blocks;
+} else { //global db is empty
+    unset($global_blocks);
+    //Form global db
+    $global_blocks = &$one_run;
 }
 
-//Save daily data to json
-if (save_json($daily_db_file, $daily))
-    echo "[+] Saved\n";
+//Save global data to json
+if (save_json($global_db_file, $global_blocks))
+    echo "[+] Saved to $global_db_file\n";
 
 $exec_time = round(microtime(true) - $exec_time, 2);
 echo "[i] Execution time: $exec_time sec.\n";
+
 ?>
