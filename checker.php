@@ -60,6 +60,8 @@ foreach ($sources as $source) {
                 continue;
             }
             $hashes.= $blocks[$i]['hash'] . "\n";
+            
+            $blocks[$i]['date'] = $today;
 
             $blocks[$i]['name'] = get_name($html_blocks[$i]);
             if (strlen($blocks[$i]['name']) > 0)
