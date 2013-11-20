@@ -28,7 +28,10 @@ if ($global_blocks) { //global db exists
     $uniq_blocks = get_uniq_blocks($one_run, $global_blocks);
     if (!$uniq_blocks)
         exit('[-] Exit: Zero uniq blocks found');
+    //TODO report new blocks to master
+    
     unset($one_run);
+    
     //Add global blocks to uniq blocks, new blocks stay upper
     add_to_array($global_blocks, $uniq_blocks);
     $global_blocks = &$uniq_blocks;

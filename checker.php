@@ -15,17 +15,17 @@ $list = file_get_contents($filename);
 $topics = list2lines($list);
 if (!$topics)
     exit('[-] Cant load topics');
-//shuffle($topics);//TODO uncomment in production
+shuffle($topics);
 
 foreach ($sources as $source) {
     $url = trim($source['url']);
     $ref_url = 'http://google.com/'; //FIXME get better ref url
     foreach ($topics as $topic) {
-        $end_url = str_replace('#key#', $topic, $url); //TODO what to do with several wordstopics?
+        $end_url = str_replace('#key#', $topic, $url); //TODO what to do with several word topics?
         echo "[+] Processing url: $end_url\n";
         $hash = md5($end_url);
-        $debug_file = $tmp_dir . DIRECTORY_SEPARATOR . $hash . '.html'; //cache
-        $in = http_get_debug($end_url, $debug_file, $ref_url);
+        $debug_file = $tmp_dir . DIRECTORY_SEPARATOR . $hash . '.html'; //cache for debug
+        $in = http_get_prod($end_url, $debug_file, $ref_url);
         if (!$in)
             exit('[-] Cant load html');
         $ref_url = $end_url;
@@ -79,7 +79,7 @@ foreach ($sources as $source) {
         echo "[i] Corrupted blocks: $corrupt_blocks\n";
 
         unset($blocks);
-        break; //debug
+        break;
     }
 }
 
