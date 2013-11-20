@@ -355,8 +355,7 @@ function http_get_prod($url, $debug_file = NULL, $ref = 'http://google.com/') {
         if (!(stristr($codepage, 'utf8') or stristr($codepage, 'utf-8')))
             echo "[-] Convert from $codepage to UTF8\n";
     }
-    file_put_contents($debug_file, $web_page['FILE']);
-
+    
     return $web_page;
 }
 

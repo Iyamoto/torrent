@@ -18,8 +18,23 @@ $global = read_db_from_file($global_db_file);
 if ($global) { //global db exists
     $global_size = sizeof($global);
     echo "[+] Read $global_size global blocks\n";
+    report_all($global);
     
 } else { //global db is empty
     unset($global);
+}
+
+
+function report_all($db){
+    
+}
+
+function report_today($db){
+    $date = $today;
+    report_date($db, $date);
+}
+
+function report_date($db, $date){
+    
 }
 ?>
