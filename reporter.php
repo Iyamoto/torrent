@@ -18,6 +18,7 @@ $global = read_db_from_file($global_db_file);
 if ($global) { //global db exists
     $global_size = sizeof($global);
     echo "[+] Read $global_size global blocks\n";
+    //report_date($global, '2013-11-22');
     report_today($global);
 } else { //global db is empty
     unset($global);
@@ -39,9 +40,15 @@ function report_date($blocks, $date) {
     foreach ($blocks as $block) {
         if ($date == $block['date']) {
             $name = $block['name'];
+            $name = clear_name($name);
+            $name = preg_replace('|\x20+|', ' ', $name);
+            $name = ucfirst($name);
             echo "$name\n";
+            if(strlen($name)<5) var_dump($block);
         }
     }
 }
+
+
 
 ?>

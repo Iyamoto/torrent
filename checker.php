@@ -6,7 +6,6 @@
 $exec_time = microtime(true);
 require_once 'config.php';
 require_once 'functions.php';
-require_once 'libs' . DIRECTORY_SEPARATOR . 'web_bots.php';
 echo "\n[+] Started\n";
 
 //Get topics
@@ -22,6 +21,7 @@ foreach ($sources as $source) {
     $url = trim($source['url']);
     $ref_url = 'http://google.com/'; //FIXME get better ref url
     foreach ($topics as $topic) {
+        $topic = 'analysis';
         $end_url = str_replace('#key#', $topic, $url); //TODO what to do with several word topics?
         echo "[+] Processing url: $end_url\n";
         $hash_url = md5($end_url);
@@ -90,7 +90,7 @@ foreach ($sources as $source) {
         echo "[i] Corrupted blocks: $corrupt_blocks\n";
 
         unset($blocks);
-        //break;
+        break;
     }
 }
 

@@ -6,7 +6,6 @@
 $exec_time = microtime(true);
 require_once 'config.php';
 require_once 'functions.php';
-require_once 'libs' . DIRECTORY_SEPARATOR . 'web_bots.php';
 echo "\n[+] Started\n";
 
 //Read one_run

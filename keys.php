@@ -5,7 +5,6 @@ echo "\n Lets go\n";
 
 $file = 'F:\Read\list.txt';
 $list = file_get_contents($file);
-$craps = array('\\', '.', '(', ')', ',', '[', ']', '/', ':');
 $stopwords = array('pdf', 'epub', 'the', 'jpg', 'and', 'mp3', 'gif', 'with', 'for', 'chm', 'mobi', 'htm', 'txt', 'djvu', 'zip', 'htm');
 foreach ($craps as $crap) {
     $list = str_replace($crap, ' ', $list);
