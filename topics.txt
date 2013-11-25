@@ -57,3 +57,6 @@ art
 wrox
 devops
 apress
+bots
+kali
+malware
