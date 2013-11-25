@@ -21,7 +21,7 @@ foreach ($sources as $source) {
     $url = trim($source['url']);
     $ref_url = 'http://google.com/'; //FIXME get better ref url
     foreach ($topics as $topic) {
-        $topic = 'analysis';
+        //$topic = 'analysis';
         $end_url = str_replace('#key#', $topic, $url); //TODO what to do with several word topics?
         echo "[+] Processing url: $end_url\n";
         $hash_url = md5($end_url);
@@ -90,7 +90,7 @@ foreach ($sources as $source) {
         echo "[i] Corrupted blocks: $corrupt_blocks\n";
 
         unset($blocks);
-        break;
+        //break;
     }
 }
 
